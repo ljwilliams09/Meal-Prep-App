@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f8f8;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.prompt {
+  background: #e0f7fa;
+  padding: 16px;
+  margin: 20px auto;
+  width: fit-content;
+  border-radius: 8px;
+  color: #00796b;
+  font-size: 1.2em;
+}
