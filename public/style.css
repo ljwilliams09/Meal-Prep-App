@@ -23,6 +23,59 @@ h4 {
   margin: 20px auto;
   width: fit-content;
   border-radius: 8px;
-  color: #00796b;
+  color: #409351;
   font-size: 1.2em;
+}
+
+.navbar {
+  background: #409351;
+  padding: 0 20px;
+} 
+
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 18px 0;
+  display: block;
+  transition: color 0.2s;
+}
+
+.navbar a:hover {
+  color: #e0f7fa;
+}
+
+.footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0 10px 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.95em;
+}
+
+.footer a {
+  color: #e0f7fa;
+  text-decoration: underline;
+  margin: 0 5px;
+}
+
+.footer a:hover {
+  color: #409351;
 }
