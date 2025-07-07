@@ -195,7 +195,7 @@ h4 {
   border-right: 18px solid transparent;
   border-top: 18px solid #409351;
   margin-top: -2px;
-  animation: arrow-bounce 1.2s infinite;
+  animation: arrow-bounce 2.0s infinite;
 }
 
 @keyframes arrow-bounce {
