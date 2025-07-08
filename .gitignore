@@ -33,3 +33,4 @@ build/
 # Optional: local server database or cache
 *.sqlite
 .cache/
+/src/generated/prisma
