@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
 
-app.listen(3000)
+const path = require('path')
 
-app.get('/', (res, req) =>{
-    console.log('Here')
-    res.send('/Users/lucawilliams/Desktop/Meal-Prep-App/public/login.html')
-})
+const port = 3000
 
-app.listen(3000)
+app.listen(port, () => {
+    console.log(`Running on Port ${port}`)
+});
+
+app.get('/', (req, res) =>{
+    res.sendFile(path.join(__dirname, '..', 'public', 'login.html'))
+});
