@@ -1,4 +1,4 @@
-# Meal-Prep-App## Project Description
+## Project Description
 
 This is a meal preparation application designed to help anyone from college students to aspiring chefs plan and organize their meals efficiently. It aims to simplify the process of meal prepping, making healthy eating more accessible and manageable.
 
@@ -20,13 +20,17 @@ This is a meal preparation application designed to help anyone from college stud
 ## Installation (Planned)
 
 1. **Clone the repository:**
+
    ```bash
 
    ```
+
 2. **Navigate to the project directory:**
+
    ```bash
 
    ```
+
 3. **Install frontend dependencies:**
 
    ```bash
@@ -34,6 +38,7 @@ This is a meal preparation application designed to help anyone from college stud
    ```
 
 4. **Install backend dependencies:**
+
    ```bash
 
    ```
@@ -41,13 +46,17 @@ This is a meal preparation application designed to help anyone from college stud
 ## Usage (Planned)
 
 1. **Start the backend server:**
+
    ```bash
 
    ```
+
 2. **Start the frontend application:**
+
    ```bash
 
    ```
+
    (This will typically open the app in a simulator or your browser depending on your React Native setup.)
 
 ## Contributing
