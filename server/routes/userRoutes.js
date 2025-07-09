@@ -1,5 +1,13 @@
 const express = require('express');
-const app = express.Router();
+const router = express.Router();
 
 
-app.post('/submit')
+
+router.post('/submit', (req, res) => {
+    
+});
+
+router.post('/register', (req, res) => {
+
+});
+
