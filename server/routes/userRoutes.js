@@ -17,8 +17,10 @@ router.get('/register', (req, res) => {
 
 router.post('/authLogin', async (req, res) =>{
     const { username, password } = req.body;
-    // validate here
-
+    // Validations
+    if (!username || !password){
+        res.status(401).json({ error: 'Invalid Credentials' })
+    }
     // Lookup user
     try {
         const user = await prisma.user.findFirst({
@@ -31,17 +33,19 @@ router.post('/authLogin', async (req, res) =>{
         });
 
         if (!user){
-            return res.status(401).json({ error: 'Invalid creditials.' });
+            return res.status(401).json({ error: 'Invalid credentials.' });
         }
+
+        // Validate password
+        const verified = await argon2.verify(user.password, password)
+        if (!verified)
+            return res.status(401).json({ error: 'Invalid credentials.' })
     }
     catch (err){
         return res.status(501).json({error: 'Something went wrong on our end.' });
     }
-    // Validate password
-    const verified = await argon.verify(user.password, password)
-    if (!verified)
-        return res.status()
 
+    res.redirect('/dashboard');
 });
 
 module.exports = router;
