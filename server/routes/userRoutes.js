@@ -12,4 +12,11 @@ router.get('/register', (req, res) => {
     res.sendFile(path.join(public, 'register.html'))
 });
 
+router.post('/authLogin', (req, res) =>{
+    const { username, password } = req.body;
+    if (username == null || password == null)
+        // finish this
+        return
+});
+
 module.exports = router;
