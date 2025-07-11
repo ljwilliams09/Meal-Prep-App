@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path')
+const path = require('path');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 const public = path.join(__dirname, '..', '..', 'public')
 
@@ -12,11 +14,24 @@ router.get('/register', (req, res) => {
     res.sendFile(path.join(public, 'register.html'))
 });
 
-router.post('/authLogin', (req, res) =>{
+router.post('/authLogin', async (req, res) =>{
     const { username, password } = req.body;
-    if (username == null || password == null)
-        // finish this
-        return
+    // validate here
+
+    // lookup in database
+    try {
+        const user = await prisma.user.findFirst({
+            where: {
+                OR: [
+                    { username: username},
+                    { email : username }
+                ]
+            }
+        })
+    }
+    catch (err){
+
+    }
 });
 
 module.exports = router;
