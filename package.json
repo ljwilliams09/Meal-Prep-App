@@ -15,7 +15,9 @@
     "@prisma/client": "^6.11.1",
     "argon2": "^0.43.0",
     "body-parser": "^2.2.0",
-    "express": "^5.1.0"
+    "crypto": "^1.0.1",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1"
   },
   "devDependencies": {
     "@ljharb/tsconfig": "^0.3.2",
