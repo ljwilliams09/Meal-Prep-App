@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.11.1",
+    "argon2": "^0.43.0",
     "body-parser": "^2.2.0",
     "express": "^5.1.0"
   },
