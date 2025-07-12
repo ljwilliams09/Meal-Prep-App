@@ -1,11 +1,13 @@
-const first = document.getElementById("first")
-const last = document.getElementById("last")
-const email = document.getElementById("email")
-const username = document.getElementById("username")
-const password = document.getElementById("password")
+document.getElementById('registerForm').addEventListener('submit', async(event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
 
-const form = document.getElementById("registerForm")
+    const response = await fetch('/authRegister', {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify(data)
+    });
 
-form.addEventListener('registerForm', (event) => {
-    console.log("Clicked!")
-})
+    const result = await response.json();
+});
