@@ -40,9 +40,19 @@ router.post('/authLogin', async (req, res) =>{
         const verified = await argon2.verify(user.password, password)
         if (!verified)
             return res.status(401).json({ error: 'Invalid credentials.' })
+
+        // Start session
+        req.session.user = {
+            id: user.id,
+            username: user.username,
+            email: user.email
+        };
+
+        // Confirmation
+        res.status(200).json({ message: 'Login successful '})
     }
     catch (err){
-        return res.status(501).json({error: 'Something went wrong on our end.' });
+        return res.status(500).json({error: 'Something went wrong on our end.' });
     }
 
     res.redirect('/dashboard');
