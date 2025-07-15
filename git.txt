@@ -1,9 +1,0 @@
-git checkout main
-git pull origin main
-git merge feature-branch
-
-#fix conflicts (if any)
-git push origin main
-
-#delete branch
-git branch -d front-page
