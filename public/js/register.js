@@ -1,5 +1,6 @@
 document.getElementById('registerForm').addEventListener('submit', async(event) => {
     event.preventDefault();
+    document.getElementById('errorMessage').textContent = ""
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
 
@@ -10,4 +11,14 @@ document.getElementById('registerForm').addEventListener('submit', async(event) 
     });
 
     const result = await response.json();
+
+    if (!response.ok){
+        registerError()
+        alert(result.error || 'Registration failed')
+        return;
+    }
 });
+
+function registerError(){
+    document.getElementById('errorMessage').textContent = "Register account failed"
+}

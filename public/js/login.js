@@ -12,5 +12,7 @@ document.getElementById('loginUser').addEventListener('submit', async (event) =>
     const result = await response.json();
     if (!response.ok || !result.success){
         alert(result.error || "Login Failed" )
+        return;
     };
+
 });

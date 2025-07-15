@@ -58,4 +58,52 @@ router.post('/authLogin', async (req, res) =>{
     res.redirect('/dashboard');
 });
 
+router.post('/authRegister', async (req, res) => {
+    const { first, last, email, username, password } = req.body;
+
+
+    // Basic validation
+    if (!first || !last || !email || !username || !password){
+        res.status(401).json({ error: 'Missing user info'});
+        return;
+    }
+
+    // Check whether the username or email exists within the database
+    const exists = await prisma.user.findFirst({
+        where: {
+            OR: [
+                { username : username},
+                { email : email}
+            ]
+        }
+    });
+    if (exists){
+        res.status(401).json({ error: 'Email or username in use'})
+        return;
+    }
+
+    // Hash password
+    const hashedPW = await argon2.hash(password);
+
+    // Create the user
+    try{
+        await prisma.user.create({
+            data: {
+                first,
+                last,
+                email,
+                username,
+                password: hashedPW 
+            }
+        });
+    }
+    catch{
+        res.status(501).json({ error: 'Could not create user'})
+        return;
+    }
+    
+    // Confirmation
+    res.status(200).json({ error: 'Login Successful'})
+
+})
 module.exports = router;
