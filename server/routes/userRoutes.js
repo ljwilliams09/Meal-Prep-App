@@ -19,7 +19,7 @@ router.post('/authLogin', async (req, res) =>{
     const { username, password } = req.body;
     // Validations
     if (!username || !password){
-        res.status(401).json({ error: 'Invalid Credentials' })
+       return res.status(401).json({ error: 'Username or Password field is blank' })
     }
     // Lookup user
     try {
@@ -39,7 +39,7 @@ router.post('/authLogin', async (req, res) =>{
         // Validate password
         const verified = await argon2.verify(user.password, password)
         if (!verified)
-            return res.status(401).json({ error: 'Invalid credentials.' })
+            return res.status(401).json({ error: 'Could not verify password' })
 
         // Start session
         req.session.user = {
@@ -49,13 +49,13 @@ router.post('/authLogin', async (req, res) =>{
         };
 
         // Confirmation
-        res.status(200).json({ message: 'Login successful '})
+        return res.status(200).json({ message: 'Login successful '})
     }
     catch (err){
         return res.status(500).json({error: 'Something went wrong on our end.' });
     }
 
-    res.redirect('/dashboard');
+
 });
 
 router.post('/authRegister', async (req, res) => {
@@ -64,23 +64,21 @@ router.post('/authRegister', async (req, res) => {
 
     // Basic validation
     if (!first || !last || !email || !username || !password){
-        res.status(401).json({ error: 'Missing user info'});
-        return;
+        return res.status(401).json({ error: 'Missing user info'});
+        
     }
 
-    // Check whether the username or email exists within the database
-    const exists = await prisma.user.findFirst({
-        where: {
-            OR: [
-                { username : username},
-                { email : email}
-            ]
-        }
-    });
-    if (exists){
-        res.status(401).json({ error: 'Email or username in use'})
-        return;
-    }
+    // Lookup email and username in user table
+    const usernameExists = await prisma.user.findFirst({ where: { username : username}})
+    const emailExists = await prisma.user.findFirst({ where: { email: email }})
+
+    // Send error if either exists
+    if (usernameExists && emailExists)
+        return res.status(401).json({ error: 'Username and Email in use'})
+    else if (usernameExists)
+        return res.status(401).json({ error: 'Username in use'})
+    else if (emailExists)
+        return res.status(401).json({ error: 'Email in use'})
 
     // Hash password
     const hashedPW = await argon2.hash(password);
@@ -103,7 +101,7 @@ router.post('/authRegister', async (req, res) => {
     }
     
     // Confirmation
-    res.status(200).json({ error: 'Login Successful'})
+    res.status(200).json({ message: 'Login Successful'})
 
 })
 module.exports = router;

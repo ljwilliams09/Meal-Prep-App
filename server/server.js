@@ -13,7 +13,8 @@ const public = path.join(__dirname, '..', 'public');
 const sessionAge = 60000 * 60;
 
 // Use
-app.use(express.static(public))
+app.use(express.json());
+app.use(express.static(public));
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
@@ -25,8 +26,8 @@ app.use(
             maxAge: sessionAge
         }
     })
-)
-app.use('/', (userRoutes))
+);
+app.use('/', (userRoutes));
 
 
 // Main Routes
