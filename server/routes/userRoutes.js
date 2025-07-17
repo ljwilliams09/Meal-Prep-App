@@ -27,19 +27,19 @@ router.post('/authLogin', async (req, res) =>{
             where: {
                 OR: [
                     { username: username},
-                    { email : username }
+                    { email : username}
                 ]
             }
         });
 
         if (!user){
-            return res.status(401).json({ error: 'Invalid credentials.' });
+            return res.status(401).json({ error: 'Invalid credentials.'});
         }
 
         // Validate password
         const verified = await argon2.verify(user.password, password)
         if (!verified)
-            return res.status(401).json({ error: 'Could not verify password' })
+            return res.status(401).json({ error: 'Could not verify password'})
 
         // Start session
         req.session.user = {
@@ -48,19 +48,19 @@ router.post('/authLogin', async (req, res) =>{
             email: user.email
         };
 
+        console.log('Session started')
+
         // Confirmation
-        return res.status(200).json({ message: 'Login successful '})
+        return res.status(200).json({ message: 'Login successful'})
     }
     catch (err){
-        return res.status(500).json({error: 'Something went wrong on our end.' });
+        console.log(`Login error: ${err}`)
+        return res.status(500).json({ error: 'Something went wrong on our end.'});
     }
-
-
 });
 
 router.post('/authRegister', async (req, res) => {
     const { first, last, email, username, password } = req.body;
-
 
     // Basic validation
     if (!first || !last || !email || !username || !password){
@@ -100,8 +100,16 @@ router.post('/authRegister', async (req, res) => {
         return;
     }
     
+    // Start session for the user
+    req.session.user = {
+        id: user.id,
+        username: user.username,
+        email: user.email
+    };
+
     // Confirmation
-    res.status(200).json({ message: 'Login Successful'})
+    console.log("Registered")
+    return res.status(200).json({ message: 'Registered Successful'})
 
 })
 module.exports = router;
